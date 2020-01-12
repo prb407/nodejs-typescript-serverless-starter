@@ -1,0 +1,10 @@
+{
+    "_comments": [
+        "Set you configuration here",
+        "You can create environment wise json too!",
+        "for that you need to create a file with name <<EnvironmentName>>.json",
+        "for more information about config please visit : https://www.npmjs.com/package/config"
+    ],
+    "engineName": "practice-typescript",
+    "level": "debug"
+}

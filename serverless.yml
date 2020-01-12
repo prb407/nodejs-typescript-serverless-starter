@@ -1,0 +1,39 @@
+service: nodejs-typescript-starter-with-serverless
+
+custom:
+  stage: ${opt:stage, self:provider.stage}
+  env: ${file(./env/env.${self:custom.stage}.yml)}
+  # add as many as environment you want
+  profiles:
+    # environment name
+    local:
+      name: pritesh
+
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  region: us-east-2
+  deploymentBucket: pritesh-deployment-bucket
+  profile: ${self:custom.profiles.${self:custom.stage}.name}
+  memorySize: 128
+  timeout: 6
+  environment: ${self:custom.env}
+
+plugins:
+    - serverless-offline
+    - serverless-plugin-typescript
+
+package:
+  include:
+    - src/**/!(*.spec).js
+    - config/*
+
+functions:
+  nodeApp:
+    handler: index.handler
+    # add as many as route you want to serve
+    events:
+      - http:
+          method: get
+          path: /index
